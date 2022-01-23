@@ -34,6 +34,8 @@ export default function Box({ no, boxInfo, chance, winner }) {
         <View style={styles.boxView}></View>
       )}
     </TouchableWithoutFeedback>
+
+    
   );
 }
 
