@@ -24,8 +24,46 @@ export default function App() {
     );
   }
 
+  const winPosition = [
+    [0,1,2], [3,4,5], [6,7,8],
+    [0,3,6], [1,4,7], [2,5,8],
+    [0,4,8] ,[2,4,6]
+  ]
+
+  function calculateWin() {
+    for (let i=0;  i<winPosition.length; i++) {
+      if( 
+        boxes[winPosition[i][0]] !== null &&
+        boxes[winPosition[i][0]] === boxes[winPosition[i][1]]
+        && boxes[winPosition[i][0]] === boxes[winPosition[i][2]]
+       ) {
+         setWinner(boxes[winPosition[i][0]]);
+         return;
+       }
+    }
+  }
+  useEffect(() => {
+        calculateWin();
+      }, [isXChance])
+
+
+
+
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" backgroundColor="orange" />
+      <View style={styles.featureContainer}>
+        {winner !== null ? (
+          <Text style={[styles.primaryText, styles.winnerText]}>
+            {winner} WON
+          </Text>
+        ) : (
+          <Text style={styles.primaryText}>
+            Chance: {isXChance ? "X" : "O"}
+          </Text>
+        )}
+      </View>
+
       <View style={styles.playBoard}>
         <View style={styles.boxRows}>
           {PlayBox(0)}
@@ -59,7 +97,6 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     borderRadius: 10,
     borderColor: "orange",
-   
   },
   boxRows: {
     flexDirection: "row",
